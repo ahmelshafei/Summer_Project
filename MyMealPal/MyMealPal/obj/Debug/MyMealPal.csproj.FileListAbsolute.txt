@@ -10,13 +10,6 @@ c:\users\ahmed\documents\visual studio 2015\Projects\MyMealPal\MyMealPal\obj\Deb
 c:\users\ahmed\documents\visual studio 2015\Projects\MyMealPal\MyMealPal\obj\Debug\MyMealPal.pdb
 C:\Users\Ahmed\documents\visual studio 2015\Projects\MyMealPal\MyMealPal\bin\Debug\itextsharp.dll
 C:\Users\Ahmed\documents\visual studio 2015\Projects\MyMealPal\MyMealPal\bin\Debug\itextsharp.xml
-C:\Users\Ahmed\Dropbox\Projects\SEG2105_Project_Commiters\Commit 2\MyMealPal\MyMealPal\bin\Debug\MyMealPal.exe.config
-C:\Users\Ahmed\Dropbox\Projects\SEG2105_Project_Commiters\Commit 2\MyMealPal\MyMealPal\obj\Debug\MyMealPal.exe
-C:\Users\Ahmed\Dropbox\Projects\SEG2105_Project_Commiters\Commit 2\MyMealPal\MyMealPal\obj\Debug\MyMealPal.pdb
-C:\Users\Ahmed\Dropbox\Projects\SEG2105_Project_Commiters\Commit 2\MyMealPal\MyMealPal\bin\Debug\MyMealPal.exe
-C:\Users\Ahmed\Dropbox\Projects\SEG2105_Project_Commiters\Commit 2\MyMealPal\MyMealPal\bin\Debug\MyMealPal.pdb
-C:\Users\Ahmed\Dropbox\Projects\SEG2105_Project_Commiters\Commit 2\MyMealPal\MyMealPal\bin\Debug\Bytescout.Spreadsheet.dll
-C:\Users\Ahmed\Dropbox\Projects\SEG2105_Project_Commiters\Commit 2\MyMealPal\MyMealPal\bin\Debug\Bytescout.Spreadsheet.xml
-C:\Users\Ahmed\Dropbox\Projects\SEG2105_Project_Commiters\Commit 2\MyMealPal\MyMealPal\obj\Debug\MyMealPal.csprojResolveAssemblyReference.cache
-C:\Users\Ahmed\Dropbox\Projects\SEG2105_Project_Commiters\Commit 2\MyMealPal\MyMealPal\obj\Debug\MyMealPal.Properties.Resources.resources
-C:\Users\Ahmed\Dropbox\Projects\SEG2105_Project_Commiters\Commit 2\MyMealPal\MyMealPal\obj\Debug\MyMealPal.csproj.GenerateResource.Cache
+C:\Users\Ahmed\Dropbox\Projects\SEG2105_Project_Commiters\Commit Final\MyMealPal\MyMealPal\bin\Debug\MyMealPal.exe.config
+C:\Users\Ahmed\Dropbox\Projects\SEG2105_Project_Commiters\Commit Final\MyMealPal\MyMealPal\obj\Debug\MyMealPal.exe
+C:\Users\Ahmed\Dropbox\Projects\SEG2105_Project_Commiters\Commit Final\MyMealPal\MyMealPal\obj\Debug\MyMealPal.pdb

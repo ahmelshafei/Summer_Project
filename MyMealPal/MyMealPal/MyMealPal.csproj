@@ -37,6 +37,10 @@
       <HintPath>..\packages\Bytescout.Spreadsheet.2.7.0.1560\lib\net40\Bytescout.Spreadsheet.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="itextsharp, Version=5.5.13.1, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <HintPath>..\packages\iTextSharp.5.5.13.1\lib\itextsharp.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -58,6 +62,7 @@
     <Compile Include="Meal.cs" />
     <Compile Include="MealGUI.cs" />
     <Compile Include="NutritionFact.cs" />
+    <Compile Include="NutritionFacts_PDF.cs" />
     <Compile Include="ProcedureForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -87,6 +92,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <None Include="ClassDiagram.cd" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

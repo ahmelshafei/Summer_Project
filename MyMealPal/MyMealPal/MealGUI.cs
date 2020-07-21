@@ -140,6 +140,78 @@ namespace MyMealPal
         }
 
         /// <summary>
+        /// method <c>generateNutritionFacts</c> creates a pdf that contains all the nutritional values of the meal.
+        /// </summary>
+        private void generateNutritionFacts()
+        {
+            resetNutritionalValues();
+            if (meal == null) createMeal();
+            string name = string.Empty;
+            List<string> strDetails = new List<string>();
+            for (int i = 0; i < meal.getListOfProducts().Count; i++)
+            {
+                if (i == 0) name = meal.getListOfProducts()[i].getRecipe();
+                else name += ", " + meal.getListOfProducts()[i].getRecipe();
+                if (meal.getListOfProducts()[i].getQuantity() == 1) strDetails.Add("*" + meal.getListOfProducts()[i].getQuantity().ToString() + " " + meal.getListOfProducts()[i].getUnit(meal.getListOfProducts()[i].getMainIngredient()) + " of " + meal.getListOfProducts()[i].getMainIngredient());
+                else strDetails.Add("*" + meal.getListOfProducts()[i].getQuantity().ToString() + " " + meal.getListOfProducts()[i].getUnit(meal.getListOfProducts()[i].getMainIngredient()) + "s of " + meal.getListOfProducts()[i].getMainIngredient());
+            }
+            NutritionFacts_PDF n = new NutritionFacts_PDF(resources_directory, name, meal.getNutritionFacts(), "1 Meal", strDetails);
+        }
+
+        /// <summary>
+        /// method <c>generateMealValues</c> generates and adds the important values of each product in the GUI.
+        /// </summary>
+        private void generateMealValues()
+        {
+            resetNutritionalValues();
+            if (meal == null) createMeal();
+
+            // char length = 9points .. length between two headings 37points
+
+            int location = list_of_button.Last().Location.Y + 100;
+
+            createLabel("_____________________________________________________________________", new Point(40, location), 12);
+
+            location += 30;
+
+            createLabel("Product", new Point(40, location), 12);
+            createLabel("Protein", new Point(140, location), 12);
+            createLabel("Fats", new Point(240, location), 12);
+            createLabel("Carbohydrates", new Point(313, location), 12);
+            createLabel("Calories", new Point(467, location), 12);
+            createLabel("Cost", new Point(576, location), 12);
+            createLabel("P/F/C", new Point(649, location), 12);
+
+            location += 10;
+            createLabel("_____________________________________________________________________", new Point(40, location), 12);
+
+
+            for (int i = 0; i < list_of_productsGUI.Count; i++)
+            {
+                location = list_of_nutrition_lables.Last().Location.Y + 40;
+                createLabel((i+1).ToString(), new Point(40, location), 12);
+                createLabel(list_of_productsGUI[i].getProduct().getNutritionFacts().getProtein() + "g", new Point(140, location), 12);
+                createLabel(list_of_productsGUI[i].getProduct().getNutritionFacts().getFats() + "g", new Point(240, location), 12);
+                createLabel(list_of_productsGUI[i].getProduct().getNutritionFacts().getCarbohydrates() + "g", new Point(313, location), 12);
+                createLabel(list_of_productsGUI[i].getProduct().getNutritionFacts().getCalories(), new Point(467, location), 12);
+                createLabel("$" + list_of_productsGUI[i].getProduct().getCost().ToString(), new Point(576, location), 12);
+                createLabel(list_of_productsGUI[i].getProduct().getNutritionFacts().getMacroNutrientRatio(), new Point(649, location), 12);
+            }
+
+            location = list_of_nutrition_lables.Last().Location.Y + 40;
+            createLabel("_____________________________________________________________________", new Point(40, location), 12);
+
+            location = list_of_nutrition_lables.Last().Location.Y + 40;
+            createLabel("Total", new Point(40, location), 12);
+            createLabel(meal.getNutritionFacts().getProtein() + "g", new Point(140, location), 12);
+            createLabel(meal.getNutritionFacts().getFats() + "g", new Point(240, location), 12);
+            createLabel(meal.getNutritionFacts().getCarbohydrates() + "g", new Point(313, location), 12);
+            createLabel(meal.getNutritionFacts().getCalories(), new Point(467, location), 12);
+            createLabel("$" + meal.getCost().ToString(), new Point(576, location), 12);
+            createLabel(meal.getNutritionFacts().getMacroNutrientRatio(), new Point(649, location), 12);
+        }
+
+        /// <summary>
         /// method <c>createMeal</c> creates the meal from the list of products.
         /// </summary>
         private void createMeal()
@@ -196,12 +268,12 @@ namespace MyMealPal
 
         private void macronutrient_Click(object sender, EventArgs e)
         {
-
+            generateMealValues();
         }
 
         private void nutritionFacts_Click(object sender, EventArgs e)
         {
-
+            generateNutritionFacts();
         }
 
     }
