@@ -3,6 +3,12 @@ using Bytescout.Spreadsheet;
 using System.Collections.Generic;
 using System.Linq;
 
+/*
+* @author Ahmed ElShafei
+* 
+* Copyright 2020, all rights reserved.
+*/
+
 namespace MyMealPal
 {
     /// <summary>

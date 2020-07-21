@@ -3,6 +3,12 @@ using iTextSharp.text.pdf;
 using System.Collections.Generic;
 using System.IO;
 
+/*
+* @author Ahmed ElShafei
+* 
+* Copyright 2020, all rights reserved.
+*/
+
 namespace MyMealPal
 {
     /// <summary>

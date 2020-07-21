@@ -2,6 +2,12 @@
 using System;
 using System.Collections.Generic;
 
+/*
+* @author Ahmed ElShafei
+* 
+* Copyright 2020, all rights reserved.
+*/
+
 namespace MyMealPal
 {
     /// <summary>

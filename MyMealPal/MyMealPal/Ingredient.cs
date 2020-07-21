@@ -1,6 +1,12 @@
 ﻿using Bytescout.Spreadsheet;
 using System;
 
+/*
+* @author Ahmed ElShafei
+* 
+* Copyright 2020, all rights reserved.
+*/
+
 namespace MyMealPal
 {
     /// <summary>

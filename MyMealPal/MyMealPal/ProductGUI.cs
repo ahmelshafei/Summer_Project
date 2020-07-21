@@ -3,6 +3,12 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 
+/*
+* @author Ahmed ElShafei
+* 
+* Copyright 2020, all rights reserved.
+*/
+
 namespace MyMealPal
 {
     /// <summary>

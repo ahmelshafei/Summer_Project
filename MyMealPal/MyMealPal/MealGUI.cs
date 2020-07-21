@@ -5,6 +5,12 @@ using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 
+/*
+* @author Ahmed ElShafei
+* 
+* Copyright 2020, all rights reserved.
+*/
+
 namespace MyMealPal
 {
     /// <summary>
