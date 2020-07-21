@@ -21,15 +21,20 @@ namespace MyMealPal
 
         private int id;
         private ProductGUI previous;
+        private Product product;
+
+        private Bytescout.Spreadsheet.Spreadsheet database;
 
         /// <summary>
         /// constructor <c>ProductGUI</c>
         /// </summary>
         /// <param name="f"> list of forms mainly, the main form and the procedure form. </param>
+        /// <param name="db"> database. </param>
         /// <param name="prev"> reference to the previous productGUI. </param>
-        public ProductGUI(List<Form> f, ProductGUI prev)
+        public ProductGUI(List<Form> f, Bytescout.Spreadsheet.Spreadsheet db, ProductGUI prev)
         {
             this.list_form = f;
+            this.database = db;
             this.previous = prev;
 
             if (prev == null) id = 1;
@@ -64,7 +69,7 @@ namespace MyMealPal
         /// </summary>
         private void createCategoryMenuStrip()
         {
-            category = new LinkedMenuStrip("Category", this, null);
+            category = new LinkedMenuStrip(database, "Category", this, null);
 
             if (previous == null) category.Location = new Point(140, 200);
             else category.Location = new Point(140, previous.category.Location.Y + 30);
@@ -76,7 +81,7 @@ namespace MyMealPal
         /// </summary>
         private void createRecipeMenuStrip()
         {
-            recipe = new LinkedMenuStrip("Recipe", this, category);
+            recipe = new LinkedMenuStrip(database, "Recipe", this, category);
 
             if (previous == null) recipe.Location = new Point(340, 200);
             else recipe.Location = new Point(340, previous.recipe.Location.Y + 30);
@@ -123,12 +128,23 @@ namespace MyMealPal
         }
 
         /// <summary>
+        /// method <c>createProduct</c> creates a final food product.
+        /// </summary>
+        /// <returns></returns>
+        private Product createProduct()
+        {
+            DataAnalyst d_a = new DataAnalyst(database, category.getText(), recipe.getText(), Double.Parse(quantity_box.getText()));
+            return d_a.createProduct();
+        }
+
+        /// <summary>
         /// method <c>enableRecipeButton</c> enables/disables the "Show Recipe' button and then creates a final food product.
         /// </summary>
         /// <param name="enable">bool to enable/disable.</param>
         public void enableRecipeButton(bool enable)
         {
             recipe_button.Enabled = enable;
+            if (enable) this.product = createProduct();
         }
 
         /// <summary>
@@ -147,6 +163,15 @@ namespace MyMealPal
         public QuantityBox getQuantityBox()
         {
             return quantity_box;
+        }
+
+        /// <summary>
+        /// method <c>getProduct</c> returns food product.
+        /// </summary>
+        /// <returns></returns>
+        public Product getProduct()
+        {
+            return product;
         }
 
         /// <summary>
@@ -225,7 +250,7 @@ namespace MyMealPal
 
         private void displayProcedure_Click(object sender, EventArgs e)
         {
-
+            ((ProcedureForm) list_form[1]).displayProcedure(product.step_procedure, recipe.getText());
         }
     }
 }

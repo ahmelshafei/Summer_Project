@@ -1,5 +1,10 @@
-﻿using System;
+﻿using Bytescout.Spreadsheet;
+using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace MyMealPal
@@ -9,10 +14,13 @@ namespace MyMealPal
     /// </summary>
     public class LinkedMenuStrip : MenuStrip
     {
+        private Spreadsheet database;
+
         // Properties to be added, if necessary, for instances of this class are Location, Name, and TabIndex
 
         public static int LARGE = 1;
 
+        private string directory;
         private int size;
         private string role;
         private int index;
@@ -25,15 +33,18 @@ namespace MyMealPal
         /// <summary>
         /// constructor <c>LinkedMenuStrip</c> takes in as parameters, database, role/name, ProductGUI, and previous MenuStrip.
         /// </summary>
+        /// <param name="db"></param>
         /// <param name="role"></param>
         /// <param name="prod_gui"></param>
         /// <param name="Prev"></param>
-        public LinkedMenuStrip(string role, ProductGUI prod_gui, LinkedMenuStrip Prev)
+        public LinkedMenuStrip(Spreadsheet db, string role, ProductGUI prod_gui, LinkedMenuStrip Prev)
         {
+            this.database = db;
             this.role = role;
             this.product_gui = prod_gui;
             this.previous = Prev;
 
+            this.directory = "";
             this.size = LARGE;
             this.selected_menuItem = new System.Windows.Forms.ToolStripMenuItem();
 
@@ -62,6 +73,7 @@ namespace MyMealPal
             if (this.previous == null)
             {
                 this.index = 0;
+                this.addItemList(this.getCategories());
                 this.enable();
             }
             else
@@ -184,6 +196,33 @@ namespace MyMealPal
             }
         }
 
+        /// <summary>
+        /// method <c>getCategories</c> gets list of categories from the database.
+        /// </summary>
+        /// <returns>List<String></returns>
+        private List<String> getCategories()
+        {
+            List<String> worksheets = new List<String>();
+            for (int i = 0; i < database.Worksheets.Count; i++)
+            {
+                if (!database.Worksheets[i].Name.Equals("Values")) { worksheets.Add(database.Worksheets[i].Name); }
+            }
+            return worksheets;
+        }
+
+        /// <summary>
+        /// method <c>getRecipe</c> gets list of recipes of certain categories from the database.
+        /// </summary>
+        /// <returns>List<String></returns>
+        private List<String> getRecipe(Worksheet ws)
+        {
+            List<String> product = new List<String>();
+            int row = 1;
+            while (ws.Cell(row, 0).Value != null) { product.Add(ws.Cell(row, 0).Value.ToString()); row++; }
+            if (ws.Cell(row, 0).Value == null) return product;
+            else return null;
+        }
+
         private void menuItem_Click(Object sender, EventArgs e)
         {
             ToolStripMenuItem temporaryMenuItem = sender as ToolStripMenuItem;
@@ -200,6 +239,7 @@ namespace MyMealPal
                 if (!this.getText().Equals(""))
                 {
                     this.next.enable();
+                    this.next.addItemList(getRecipe(database.Workbook.Worksheets.ByName(this.getText())));
                     this.product_gui.resetQuantityBox();
                 }
                 else
@@ -210,7 +250,11 @@ namespace MyMealPal
             //Recipe Chosen
             else
             {
-                if (this.getText().Equals(""))
+                if (!this.getText().Equals(""))
+                {
+                    this.product_gui.getQuantityBox().setPlaceHolder(database, this.previous.getText(), this.getText());
+                }
+                else
                 {
                     this.product_gui.resetQuantityBox();
                 }

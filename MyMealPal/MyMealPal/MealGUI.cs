@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Bytescout.Spreadsheet;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -14,8 +15,11 @@ namespace MyMealPal
         string resources_directory;
         List<Form> list_form;
         List<ProductGUI> list_of_productsGUI;
+        Spreadsheet database;
         List<Button> list_of_button;
         List<Label> list_of_nutrition_lables;
+
+        Meal meal;
 
         public MealGUI(List<Form> f)
         {
@@ -24,6 +28,10 @@ namespace MyMealPal
             list_form = f;
 
             resources_directory = Environment.CurrentDirectory.Replace(@"bin\Debug", "Resources");
+
+            string database_directory = resources_directory + @"\Database.xlsx";
+            database = new Spreadsheet();
+            database.LoadFromFile(database_directory);
 
             list_of_button = new List<Button>();
             list_of_nutrition_lables = new List<Label>();
@@ -104,11 +112,12 @@ namespace MyMealPal
         /// <summary>
         /// methos <c>addProductGUI</c> adds all the components that represents the product in the GUI.
         /// </summary>
+        /// <param name="db"></param>
         /// <param name="ctrl"></param>
-        private void addProductGUI(Control.ControlCollection ctrl)
+        private void addProductGUI(Spreadsheet db, Control.ControlCollection ctrl)
         {
-            if (list_of_productsGUI.Count == 0) list_of_productsGUI.Add(new ProductGUI(list_form, null));
-            else list_of_productsGUI.Add(new ProductGUI(list_form, list_of_productsGUI.Last()));
+            if (list_of_productsGUI.Count == 0) list_of_productsGUI.Add(new ProductGUI(list_form, db, null));
+            else list_of_productsGUI.Add(new ProductGUI(list_form, db, list_of_productsGUI.Last()));
 
             list_of_productsGUI.Last().addToControl();
 
@@ -131,6 +140,16 @@ namespace MyMealPal
         }
 
         /// <summary>
+        /// method <c>createMeal</c> creates the meal from the list of products.
+        /// </summary>
+        private void createMeal()
+        {
+            List<Product> listOfProDucts = new List<Product>();
+            for (int i = 0; i < list_of_productsGUI.Count; i++) listOfProDucts.Add(list_of_productsGUI[i].getProduct());
+            meal = new Meal(listOfProDucts);
+        }
+
+        /// <summary>
         /// method <c>resetNutritionalValues</c> removes any nutritional values displayed in the GUI.
         /// </summary>
         private void resetNutritionalValues()
@@ -140,12 +159,12 @@ namespace MyMealPal
                 list_form[0].Controls.Remove(list_of_nutrition_lables[i]);
             }
 
-            list_of_nutrition_lables.Clear();
+            list_of_nutrition_lables.Clear(); meal = null;
         }
 
         private void addProduct_Click(object sender, EventArgs e)
         {
-            addProductGUI(list_form[0].Controls);
+            addProductGUI(database, list_form[0].Controls);
             resetNutritionalValues();
         }
 
